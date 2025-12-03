@@ -16,9 +16,10 @@ class _SchoolIdState extends State<SchoolId> {
     return snapshot.docs.map((doc) {
       final data = doc.data();
       return {
-        "name": data["Name"], // exact field name
-        "school": data["School"], // exact field name
-        "idNumber": data["ID Number"], // exact field name
+        "name": data["Name"],
+        "school": data["School"],
+        "idNumber": data["ID Number"],
+        "place": data["Place"],
       };
     }).toList();
   }
@@ -34,6 +35,14 @@ class _SchoolIdState extends State<SchoolId> {
             style: TextStyle(fontWeight: FontWeight.w900),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              setState(() {}); // Refresh the data
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: getStudentData(),
@@ -106,6 +115,14 @@ class _SchoolIdState extends State<SchoolId> {
                             const SizedBox(height: 5),
                             Text(
                               "ID Number: ${student["idNumber"] ?? ""}",
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.blueGrey,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              student["place"] ?? "",
                               style: const TextStyle(
                                 fontSize: 13,
                                 color: Colors.blueGrey,
